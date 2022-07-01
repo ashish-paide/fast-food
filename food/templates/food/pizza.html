@@ -1,0 +1,48 @@
+{% extends 'food/base.html' %}
+
+{% load static %}
+
+{% block title %}pizzas{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-md-8 text-center">
+                <h2 class="title">Our pizzas</h2>
+                <div class="row">
+                    {% for pizza in pizzas %}
+                    <div class="col-md-4 col-sm-6 p-4">
+                        <img class="picture" src="{{ pizza.pImage }}">
+                        <h4 class="pt-3" id="piz{{pizza.id}}" > {{ pizza.name }} </h4>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="pizza{{pizza.id}}"  value="{{pizza.priceM}}" checked>
+                                M: {{ pizza.priceM }} $
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="pizza{{pizza.id}}" value="{{pizza.priceL}}">
+                                L: {{ pizza.priceL }} $
+                            </label>
+                        </div>
+                        <div>
+                            <button class="btn-info mt-3" onclick="addPizza('{{ pizza.id }}')">Add to cart</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-4 orders">
+                <div class="bg-dark p-4 rounded text-light">
+                    <h2 class = "text-center" >Order list</h2>
+                    <ul id="pcart"></ul>
+                    <h4 class="text-right" id="ptotal">Total: 0 $</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'food/js/order.js' %}"></script>
+    
+{% endblock %}
